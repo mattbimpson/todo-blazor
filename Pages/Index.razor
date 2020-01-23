@@ -1,0 +1,24 @@
+﻿@page "/"
+@using todo_blazor.Components
+@using todo_blazor.Models
+
+<div class="todo-contents">
+  <div class="header">
+    stuff to do
+  </div>
+  <div class="add-container">
+    <input type="text" id="txtTodo" class="text-input" placeholder="what do you need to do?" @bind="description" />
+    <button type="button" id="btnAdd" class="btn" @onclick="@AddTodo">Add todo</button>
+  </div>
+  <TodoList todos=todos />
+</div>
+
+@code {
+  private List<Todo> todos = new List<Todo>();
+  private string description = "";
+  private void AddTodo()
+  {
+    todos.Add(new Todo { Description = description });
+    description = "";
+  }
+}

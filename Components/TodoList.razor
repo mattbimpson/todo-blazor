@@ -1,0 +1,17 @@
+<div class="todo-list">
+  @foreach (var todo in todos)
+  {
+      <TodoItem todo="todo"/>
+  }
+</div>
+
+<style scoped>
+  .todo-list {
+    display: inline-block;
+  }
+</style>
+
+@using todo_blazor.Models
+@code {
+  [Parameter] public List<Todo> todos { get; set; }
+}
