@@ -1,4 +1,4 @@
-<div class="todo-container completed">
+<div class="todo-container @cssClass" @onclick="@completedChanged">
   <div class='todo-item'>
         @todo.Description
     </div>
@@ -38,5 +38,15 @@
 </style>
 
 @code {
+  private string cssClass { get; set; }
   [Parameter] public todo_blazor.Models.Todo todo { get; set; }
+
+  private void completedChanged() {
+    todo.Completed = !todo.Completed;
+    setCssClass();
+  }
+
+  private void setCssClass() {
+    cssClass = todo.Completed ? "completed" : "";
+  }
 }
