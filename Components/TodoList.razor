@@ -1,7 +1,7 @@
 <div class="todo-list">
   @foreach (var todo in todos)
   {
-      <TodoItem todo="todo"/>
+      <TodoItem todo="todo" Remove="@RemoveTodo" />
   }
 </div>
 
@@ -11,7 +11,15 @@
   }
 </style>
 
-@using todo_blazor.Models
+@using todo_blazor.Models;
+@using todo_blazor.Components;
 @code {
-  [Parameter] public List<Todo> todos { get; set; }
+  [Parameter]
+  public List<Todo> todos { get; set; }
+
+  private void RemoveTodo(int id)
+  {
+    this.todos = this.todos.Where(x => x.Id != id).ToList();
+    base.StateHasChanged();
+  }
 }

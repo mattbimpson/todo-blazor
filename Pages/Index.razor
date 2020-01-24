@@ -16,9 +16,15 @@
 @code {
   private List<Todo> todos = new List<Todo>();
   private string description = "";
+
   private void AddTodo()
   {
-    todos.Add(new Todo { Description = description });
+    var id = this.todos.Count > 0 ? this.todos.Last().Id + 1 : 0;
+    todos.Add(new Todo
+      {
+        Description = description,
+        Id = id
+      });
     description = "";
   }
 }

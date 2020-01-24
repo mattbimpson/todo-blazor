@@ -1,10 +1,10 @@
 <div class="todo-container @cssClass" @onclick="@completedChanged">
-  <div class='todo-item'>
-        @todo.Description
+    <div class='todo-item'>
+      @todo.Description
     </div>
-    @* <div class='todo-controls'>
-        <input type="button" class="btn" value="X" />
-    </div> *@
+    <div class='todo-controls'>
+      <input type="button" class="btn" value="X" @onclick="@RemoveClicked" />
+    </div>
 </div>
 
 <style scoped>
@@ -39,14 +39,26 @@
 
 @code {
   private string cssClass { get; set; }
-  [Parameter] public todo_blazor.Models.Todo todo { get; set; }
 
-  private void completedChanged() {
+  [Parameter]
+  public todo_blazor.Models.Todo todo { get; set; }
+
+  [Parameter]
+  public Action<int> Remove { get; set; }
+
+  private void completedChanged()
+  {
     todo.Completed = !todo.Completed;
     setCssClass();
   }
 
-  private void setCssClass() {
+  private void setCssClass()
+  {
     cssClass = todo.Completed ? "completed" : "";
+  }
+
+  private void RemoveClicked()
+  {
+    this.Remove(this.todo.Id);
   }
 }
