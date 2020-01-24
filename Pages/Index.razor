@@ -1,6 +1,8 @@
 ﻿@page "/"
 @using todo_blazor.Components
 @using todo_blazor.Models
+@using todo_blazor.Services
+@inject IStorageService _localStorageService
 
 <div class="todo-contents">
   <div class="header">
@@ -26,6 +28,8 @@
         Id = id
       });
     description = "";
+
+    // _localStorageService.UpdateLocalStorage();
   }
 }
 
