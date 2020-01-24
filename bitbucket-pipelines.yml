@@ -10,9 +10,6 @@ pipelines:
     - step:
         caches:
           - dotnetcore
-        script: # Modify the commands below to build your repository.
-          - export PROJECT_NAME=todo-blazor
-          #- export TEST_NAME=yourTestName
+        script:
           - dotnet restore
-          - dotnet build $PROJECT_NAME
-          #- dotnet test $TEST_NAME
+          - dotnet build
