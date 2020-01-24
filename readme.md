@@ -1,5 +1,5 @@
 # Todo - Blazor
-A todo app made with Blazor
+A todo app made with Blazor.
 Blazor allows you to write your UIs in C#, with the Razor view engine.
 This app runs in Web Assembly mode - allowing your .net code to run within the browser. 
 
