@@ -19,6 +19,15 @@
   private List<Todo> todos = new List<Todo>();
   private string description = "";
 
+  protected override async Task OnInitializedAsync()
+  {
+    var cachedItems = await _localStorageService.GetItemAsync<List<Todo>>("Todo-List");
+    if (cachedItems != null)
+    {
+      this.todos = cachedItems;
+    }
+  }
+
   private void AddTodo()
   {
     var id = this.todos.Count > 0 ? this.todos.Last().Id + 1 : 0;
@@ -29,7 +38,7 @@
       });
     description = "";
 
-    // _localStorageService.UpdateLocalStorage();
+    _localStorageService.UpdateLocalStorage("Todo-List", this.todos);
   }
 }
 

@@ -1,9 +1,11 @@
+using System.Threading.Tasks;
+
 namespace todo_blazor.Services
 {
   public interface IStorageService
   {
-    void UpdateLocalStorage();
-
-    void ClearLocalStorage();
+    Task<T> GetItemAsync<T>(string key);
+    Task ClearLocalStorage();
+    Task UpdateLocalStorage(string key, object data);
   }
 }

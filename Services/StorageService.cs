@@ -1,15 +1,30 @@
+using System.Threading.Tasks;
+using Blazored.LocalStorage;
+
 namespace todo_blazor.Services
 {
   public class StorageService : IStorageService
   {
-    public void ClearLocalStorage()
+    private readonly ILocalStorageService _localStorageService;
+
+    public StorageService(ILocalStorageService localStorageService)
     {
-      throw new System.NotImplementedException();
+        _localStorageService = localStorageService;
     }
 
-    public void UpdateLocalStorage()
+    public async Task<T> GetItemAsync<T>(string key)
     {
-      throw new System.NotImplementedException();
+      return await _localStorageService.GetItemAsync<T>(key);
+    }
+
+    public async Task ClearLocalStorage()
+    {
+      await _localStorageService.ClearAsync();
+    }
+
+    public async Task UpdateLocalStorage(string key, object data)
+    {
+      await _localStorageService.SetItemAsync(key, data);
     }
   }
 }
