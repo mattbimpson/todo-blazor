@@ -13,6 +13,7 @@
     <button type="button" id="btnAdd" class="btn" @onclick="@AddTodo">Add todo</button>
   </div>
   <TodoList todos=todos />
+  <ConfirmBtn buttonText="Clear all your todos?" Action="@ClearAll" />
 </div>
 
 @code {
@@ -38,7 +39,19 @@
       });
     description = "";
 
-    _localStorageService.UpdateLocalStorage("Todo-List", this.todos);
+    this.UpdateTodoCache();
+  }
+
+  private void ClearAll()
+  {
+    this.todos = new List<Todo>();
+    this.UpdateTodoCache();
+    base.StateHasChanged();
+  }
+
+  private async void UpdateTodoCache()
+  {
+    await _localStorageService.UpdateLocalStorage("Todo-List", this.todos);
   }
 }
 

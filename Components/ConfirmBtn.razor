@@ -1,0 +1,61 @@
+@using todo_blazor.Services
+@inject IStorageService _localStorageService
+
+<div>
+  @if (confirming == true)
+  {
+    <input type="button" class="btn-choice yes" value="Yes" @onclick="@ConfirmYes" />
+    <input type="button" class="btn-choice no" value="No" @onclick="@ConfirmNo" />
+  } else {
+    <input type="button" class="btn-confirm" value=@buttonText @onclick="@ToggleConfirm">
+  }
+</div>
+
+
+
+<style scoped>
+  .btn-choice {
+    border-radius: 5px;
+    border: 0px;
+    margin-top: 20px;
+  }
+
+  .btn-confirm {
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 0px;
+    padding: 5px;
+    margin-right: 5px;
+  }
+  .yes {
+    background-color: lightgreen;
+  }
+  .no {
+    background-color: lightcoral;
+  }
+</style>
+
+@code {
+  [Parameter]
+  public Action Action {get; set; }
+  [Parameter]
+  public string buttonText { get; set; }
+  private bool confirming = false;
+
+  private void ToggleConfirm()
+  {
+    this.confirming = !this.confirming;
+  }
+
+  private void ConfirmYes()
+  {
+    _localStorageService.ClearLocalStorage();
+    this.Action();
+    this.ToggleConfirm();
+  }
+
+  private void ConfirmNo()
+  {
+    this.ToggleConfirm();
+  }
+}
